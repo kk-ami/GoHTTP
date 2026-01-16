@@ -1,1 +1,1 @@
-# BASIC HTTP Server in Go 
+# Simple HTTP server in GO
