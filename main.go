@@ -6,7 +6,7 @@ import (
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello there\n")
+	fmt.Fprintf(w, "Hello there!\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
@@ -21,5 +21,10 @@ func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 
-	http.ListenAndServe(":8090", nil)
+	fmt.Println("Server starting on http://localhost:8090...")
+
+	err := http.ListenAndServe(":8090", nil)
+	if err != nil {
+		panic(err)
+	}
 }
