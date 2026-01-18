@@ -3,10 +3,17 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"io"
 )
 
-func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello there!\n")
+func getRoot(w http.ResponseWriter, req *http.Request) {
+	fmt.Printf("got / request\n")
+	io.WriteString(w, "This is my website!\n")
+}
+
+func getHello(w http.ResponseWriter, req *http.Request) {
+	fmt.Printf("got /hello request\n")
+	io.WriteString(w, "Hello there!\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
@@ -18,7 +25,8 @@ func headers(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/hello", hello)
+	http.HandleFunc("/", getRoot)
+	http.HandleFunc("/hello", getHello)
 	http.HandleFunc("/headers", headers)
 
 	fmt.Println("Server starting on http://localhost:8090...")
