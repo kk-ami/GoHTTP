@@ -25,13 +25,14 @@ func headers(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", getHello)
-	http.HandleFunc("/headers", headers)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", getRoot)
+	mux.HandleFunc("/hello", getHello)
+	mux.HandleFunc("/headers", headers)
 
 	fmt.Println("Server starting on http://localhost:8090...")
 
-	err := http.ListenAndServe(":8090", nil)
+	err := http.ListenAndServe(":8090", mux)
 	if err != nil {
 		panic(err)
 	}
